@@ -37,3 +37,4 @@ jobs:
           claude_args: |
             --allowedTools "Bash(bun install),Bash(bun test:*),Bash(bun run format),Bash(bun typecheck)"
             --model "claude-opus-4-6"
+ 
