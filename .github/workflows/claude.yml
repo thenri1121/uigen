@@ -29,11 +29,6 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Project Setup
-        run:
-          npm run Setup
-          npm run dev:daemon
-
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@main
@@ -42,25 +37,3 @@ jobs:
           claude_args: |
             --allowedTools "Bash(bun install),Bash(bun test:*),Bash(bun run format),Bash(bun typecheck)"
             --model "claude-opus-4-6"
-
-          custom_instructions: |
-            The project is already setup with all dependencies installed.
-            The server is already running at localhost:3000.  Logs from it 
-            are being written to logs.txt.  If needed you can query the 
-            db with the 'sqlite3' cli.  If needed use the mcp_playwrite
-            set of tools to launch a browser and interact with the app.  
-
-          mcp_config:
-            {
-             "mcpServers": {
-                "playwrite": {
-                  "command": "npx",
-                  "args": [
-                    "@playwright/mcp@latest",
-                    "--allowed-origins",
-                    "localhost:3000;cdn.tailwindcss.com;esm.sh"
-                      ]
-                }
-              }
-            }  
-  allowed_tools:  "Bash(npm:*),Bash(sqlite3:*),mcp__playwrite_browser_snapshot,mcp__playwrite__browser_click,mcp"      
